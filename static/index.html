@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CipherX</title>
+  <link rel="stylesheet" href="/static/styles.css?v=20261101-17">
+</head>
+<body>
+  <div id="auth" class="auth-wrap">
+    <div class="auth-card">
+      <div class="brand">
+        <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+          <path fill="currentColor" d="M12 2 4 6v6c0 5.2 3.4 10 8 11.4C16.6 22 20 17.2 20 12V6l-8-4zm0 11.2c.9 0 1.6-.7 1.6-1.6V9.2c0-.9-.7-1.6-1.6-1.6s-1.6.7-1.6 1.6v2.4c0 .9.7 1.6 1.6 1.6z"/>
+        </svg>
+        <div>
+          <h1>CipherX</h1>
+          <p>End-to-end encrypted chat</p>
+        </div>
+      </div>
+      <div class="tabs">
+        <button type="button" id="tab-login" class="tab active">Login</button>
+        <button type="button" id="tab-register" class="tab">Register</button>
+      </div>
+      <div id="auth-form">
+        <label>Username
+          <input id="username" name="username" maxlength="20" autocomplete="username" placeholder="3–20 letters, digits, _">
+        </label>
+        <label>Password
+          <input id="password" name="password" type="password" minlength="6" autocomplete="current-password" placeholder="at least 6 characters">
+        </label>
+        <label id="confirm-wrap" class="hidden">Confirm password
+          <input id="confirm" name="confirm" type="password" minlength="6" placeholder="repeat password" disabled>
+        </label>
+        <button type="button" id="auth-submit" disabled>Login</button>
+        <p id="auth-status" class="status" role="status"></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="app" class="app hidden">
+    <aside class="sidebar">
+      <header class="side-head">
+        <div class="profile-summary">
+          <div class="avatar profile-avatar" id="me-avatar" aria-hidden="true"></div>
+          <div class="profile-details">
+            <strong id="me-name"></strong>
+            <span class="username-label" id="me-username"></span>
+            <span class="presence-label" id="me-status"><span class="dot on"></span>Active now</span>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button type="button" id="logout" class="logout-button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5"></path><path d="M15 12H3"></path><path d="M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6"></path></svg>
+            <span>Log out</span>
+          </button>
+        </div>
+      </header>
+      <div class="side-label">People</div>
+      <label class="search-field contact-search">
+        <span class="sr-only">Search contacts</span>
+        <input id="contact-search" type="search" placeholder="Search people" autocomplete="off">
+      </label>
+      <ul id="user-list" class="user-list"></ul>
+    </aside>
+    <main class="chat">
+      <header class="chat-head" id="chat-head">
+        <div class="profile-summary">
+          <button type="button" id="back-to-contacts" class="back-to-contacts" aria-label="Back to contacts">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+          </button>
+          <div class="avatar chat-avatar hidden" id="peer-avatar" aria-hidden="true"></div>
+          <div class="profile-details">
+            <strong id="peer-name">Select someone to chat</strong>
+            <span class="presence-label hidden" id="peer-status"></span>
+            <span class="typing-status hidden" id="typing-status" aria-live="polite">Typing…</span>
+          </div>
+        </div>
+        <div class="chat-search" id="chat-search-control">
+          <button type="button" id="toggle-chat-search" class="icon-button" aria-label="Search conversation" aria-expanded="false" aria-controls="chat-search" disabled>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+          </button>
+          <label class="search-field chat-search-field">
+            <span class="sr-only">Search this conversation</span>
+            <input id="chat-search" type="search" placeholder="Search messages" autocomplete="off" disabled>
+          </label>
+          <span id="chat-search-status" class="search-status" role="status" aria-live="polite"></span>
+          <button type="button" id="clear-chat-search" class="search-clear hidden" aria-label="Clear search" disabled>×</button>
+        </div>
+      </header>
+      <div id="messages" class="messages"></div>
+      <form id="composer" class="composer">
+        <textarea id="draft" rows="1" placeholder="Type a message" disabled></textarea>
+        <button type="button" id="emoji-toggle" class="emoji-toggle" aria-label="Choose emoji" aria-expanded="false" aria-controls="emoji-picker" disabled>😊</button>
+        <button type="submit" id="send" disabled>Send</button>
+        <div id="emoji-picker" class="emoji-picker hidden" role="group" aria-label="Choose an emoji"></div>
+      </form>
+    </main>
+  </div>
+
+  <script src="/static/nacl-fast.min.js"></script>
+  <script src="/static/scrypt.js"></script>
+  <script src="/static/crypto.js"></script>
+  <script src="/static/app.js?v=20261101-18"></script>
+</body>
+</html>
